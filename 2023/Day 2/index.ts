@@ -3,12 +3,12 @@ import { readFileSync } from "fs";
 const input = readFileSync("data.txt", { encoding: "utf8" });
 const lines = input.split("\n");
 
+const gameIdRegex = /Game (\d+):/;
+
 console.log(`Part one: ${partOne()}`);
 console.log(`Part two: ${partTwo()}`);
 
 function partOne() {
-  const gameIdRegex = /Game (\d+):/;
-
   const passedGameIds: number[] = [];
 
   lines.forEach((line: string) => {
@@ -30,9 +30,7 @@ function partOne() {
 
 function partTwo() {
   const allPowers: number[] = lines.map((line) => {
-    const newLine = line.replace(/Game (\d+):/, "");
-
-    const gameResults = newLine.split(";");
+    const gameResults = line.replace(gameIdRegex, "").split(";");
 
     const colours = {
       red: 0,
