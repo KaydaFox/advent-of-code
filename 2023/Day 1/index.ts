@@ -1,30 +1,31 @@
 // This is most likely not the fastest or most efficient way to do this
 // I've already seen better, But it works and gives me the results I wanted
 
-const fs = require("fs");
+import { readFileSync } from "fs";
 
-const input = fs.readFileSync("data.txt", { encoding: "utf8" });
+const input = readFileSync("data.txt", { encoding: "utf8" });
 const lines = input.trimEnd().split("\n");
 
 console.log(`Part 1 solution: ${partOne(lines)}`);
 console.log(`Part 2 solution: ${partTwo(lines)}`);
 
-function partOne(input) {
+function partOne(input: string[]) {
   return input.reduce((a, b) => {
-    const removeAlpha = b.replace(/\D/g, '');
+    const removeAlpha = b.replace(/\D/g, "");
 
-    const number = Number(removeAlpha[0] + removeAlpha[removeAlpha.length - 1])
+    const number = Number(removeAlpha[0] + removeAlpha[removeAlpha.length - 1]);
 
     return a + number;
-  }, 0)
+  }, 0);
 }
 
-function partTwo(input) {
+function partTwo(input: string[]) {
   return partOne(input.map(replaceNumberWords));
 }
 
-function replaceNumberWords(string) {
-  return string.replaceAll("one", "one1one")
+function replaceNumberWords(string: string) {
+  return string
+    .replaceAll("one", "one1one")
     .replaceAll("two", "two2two")
     .replaceAll("three", "three3three")
     .replaceAll("four", "four4four")
@@ -32,7 +33,7 @@ function replaceNumberWords(string) {
     .replaceAll("six", "six6six")
     .replaceAll("seven", "seven7seven")
     .replaceAll("eight", "eight8eight")
-    .replaceAll("nine", "nine9nine")
+    .replaceAll("nine", "nine9nine");
 }
 
 // My original solution for part 1
